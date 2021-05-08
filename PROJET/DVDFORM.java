@@ -8,30 +8,30 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class DVDFORM extends javax.swing.JFrame {
     private ArrayList<Film> films;
 
-    
+
     public DVDFORM() {
         initComponents();
         LectureF f = new LectureF();
+        System.out.println("fichier modifier");
         f.Segmenter();
-        
         String[][] result = f.Getresult();
         films = new ArrayList<Film>();
-        
-        jComboBox1.removeAllItems(); 
-        
+
+        jComboBox1.removeAllItems();
+
         for(int i=0; i<result.length; i++){
             films.add(new Film(result[i][0], result[i][1], result[i][2], result[i][3], result[i][4])); // on ajoute dans la liste une instance de Film, et on fait ça pour chaque film présent dans notre tableau
             jComboBox1.addItem(result[i][0]); // on range les titres des films dans la ComboBox
         }
-        
+
         setChampsNULL();
-        
+
         jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); // on empêche l'utilisation du scroll horizontal
         jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); // on autorise le scroll vertical quand c'est nécessaire
         jTextArea1.setLineWrap(true); // on permet le retour automatique à la ligne dès que le texte s'approche des bordures ( pour que le texte ne s'étale pas horizontalement)
     }
-    
-    
+
+
     public void setChampsNULL(){
         jTextField1.setText(null);
         jTextField2.setText(null);
@@ -42,61 +42,61 @@ public class DVDFORM extends javax.swing.JFrame {
     /*
         méthode qui permet d'affecter une valeur null aux champs, afin d'obtenir des champs vides
     */
-    
+
     public ArrayList<Film> GetFilms(){
         return films;
     }
-    
+
     /*
         Accesseur en lecture qui permet de récupérer la liste de films
     */
-    
+
     public void addComboBox(Film f){
         jComboBox1.addItem(f.getNom());
     }
-    
+
     /*
         méthode qui permet d'ajouter un item à la ComboBox (ajouter un titre de film)
     */
-    
+
     public int index(){
         return jComboBox1.getSelectedIndex();
     }
-    
+
     /*
         méthode qui permet de récupérer l'indice de l'item/film qu'on a sélectionné
     */
-    
+
     public int NBItem(){
         return jComboBox1.getItemCount();
     }
-    
+
     /*
         méthode qui permet de récupérer le nombre d'item de la ComboBox (soit le nombre de films restant dans la liste)
     */
-    
+
     public void setButtonVisibleTrue(){
         ModifierInfos.setEnabled(true);
         ModifierJaquette.setEnabled(true);
         RetirerFilm.setEnabled(true);
     }
-    
+
     /*
         méthode qui permet de rendre accessible les boutons (qui ont pu être désactiver dans les méthodes RetirerFilm, ModifierInfos, ModifierJaquette)
     */
-    
+
     public void Ecrire_Donnees_Dans_Champs(int position){
         jTextField1.setText(films.get(position).getDate());
         jTextField2.setText(films.get(position).getDuree());
-        jTextArea1.setText("Voici le Synopsys de cette oeuvre:\n"); 
+        jTextArea1.setText("Voici le Synopsys de cette oeuvre:\n");
         jTextArea1.append(films.get(position).getSynopsys());
     }
-    
+
     /*
         méthode qui permet d'écrire l'ensemble des données du film sélectionné dans les différents champs prévu à cet égard
     */
-    
-    
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -409,7 +409,7 @@ public class DVDFORM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
     /*
-        méthode qui permet de remplir tous les champs de la fenêtre (grâce à la métgode Ecrire_Données_Dans_Champs) dont la photo grâce à l'indice correspondant au film sélectionné 
+        méthode qui permet de remplir tous les champs de la fenêtre (grâce à la métgode Ecrire_Données_Dans_Champs) dont la photo grâce à l'indice correspondant au film sélectionné
     */
     private void FilmSuivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilmSuivantActionPerformed
         int position = index();
@@ -426,29 +426,29 @@ public class DVDFORM extends javax.swing.JFrame {
     private void ModifierInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierInfosActionPerformed
         int position = index();
         int taille_combo = NBItem();
-        if(taille_combo > 0 && position >=0 ){ 
+        if(taille_combo > 0 && position >=0 ){
             JOptionPane Infos = new JOptionPane();
             Infos.showMessageDialog(null, "Veuillez bien remplir toute les cases!!\n Dans les champs Date et Duree il faut mettre que des entiers", "Informations", JOptionPane.INFORMATION_MESSAGE);
-            
-            Modifications film = new Modifications(this); 
+
+            Modifications film = new Modifications(this);
             film.afficher();
-            this.setVisible(false); // on fait disparaître la fenêtre principale pendant tout le processus de modification.         
+            this.setVisible(false); // on fait disparaître la fenêtre principale pendant tout le processus de modification.
         }
-        else { // dans le cas où le gestionnaire est vide on désactive le bouton Modifier Informations 
+        else { // dans le cas où le gestionnaire est vide on désactive le bouton Modifier Informations
             ModifierInfos.setEnabled(false);
             JOptionPane Infos = new JOptionPane();
             Infos.showMessageDialog(null, "Il n'y a pas de films dans votre gestionnaire", "Informations", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_ModifierInfosActionPerformed
     /*
-        méthode qui permet de modifier l'ensemble des informations du film sur lequel on se trouve (grâce à l'index de la ComboBox récupérer). 
+        méthode qui permet de modifier l'ensemble des informations du film sur lequel on se trouve (grâce à l'index de la ComboBox récupérer).
         Elle permet d'ouvrir une nouvelle fenêtre dans laquelle l'utilisateur peut modfier les informations qu'il souhaite.
     */
     private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
-       
+
         JOptionPane Infos = new JOptionPane();
         Infos.showMessageDialog(null, "Veuillez bien remplir toute les cases!!\n Dans les champs Date et Duree il faut mettre que des entiers", "Informations", JOptionPane.INFORMATION_MESSAGE);
-        
+
         AjouterFilm film = new AjouterFilm(this);
         film.Afficher();
         this.setVisible(false);
@@ -467,11 +467,11 @@ public class DVDFORM extends javax.swing.JFrame {
 
         int position = index();
         int taille_combo = NBItem();
-        
+
         if(taille_combo > 0 && position >=0){
             JOptionPane confirmation = new JOptionPane();
             int option = confirmation.showConfirmDialog(null, "Voulez-vous vraiment retirer le films de la base ?","Supression film", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            
+
             if(option == JOptionPane.OK_OPTION){
                 jComboBox1.removeItemAt(position);
                 films.remove(position);
@@ -482,33 +482,33 @@ public class DVDFORM extends javax.swing.JFrame {
                 movie.Retirer(films);
             }
         }
-        
+
         else {
             RetirerFilm.setEnabled(false); // on bloque le bouton à l'utilisateur si la ComboBox est vide
             JOptionPane Infos = new JOptionPane();
             Infos.showMessageDialog(null, "Il n'y a pas de films dans votre gestionnaire", "Informations", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_RetirerFilmActionPerformed
     /*
         méthode qui permet de retirer le film sélectionné dans la fenêtre et dans le fichier
     */
     private void ModifierJaquetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierJaquetteActionPerformed
         int taille_combo = NBItem();
-        
+
         if(taille_combo > 0){
             JFileChooser Photo = new JFileChooser(); // ouvre un explorateur de fichier
             FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG", "jpg", "png"); // initialise un filtre de format pour que seul les fichiers avec les formats jpg et png soient proposés
-            Photo.setFileFilter(filter); // applique ce filtre 
+            Photo.setFileFilter(filter); // applique ce filtre
             if(Photo.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){ // cette condition permet de vérifier que le fichier a été selectionné
                 int position = index();
                 films.get(position).ModifierImage(Photo.getSelectedFile().getAbsolutePath());
                 ImageIcon icone = new ImageIcon(new ImageIcon(films.get(position).getPicturePath()).getImage().getScaledInstance(250, 350, Image.SCALE_SMOOTH));
                 jLabel1.setIcon(icone);// on affiche la nouvelle jaquette
-                
+
                 EcritureF f= new EcritureF();
                 f.Modifier(films); //on modifie le film dans le fichier
-            }     
+            }
             else {
                 JOptionPane Warning = new JOptionPane();
                 Warning.showMessageDialog(null, "Le fichier n'a pas été ouvert veuillez recommencez", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -521,7 +521,7 @@ public class DVDFORM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ModifierJaquetteActionPerformed
     /*
-        méthode qui permet de modifier la photo du film sélectionné (à la fois sur l'interface et sur le fichier) 
+        méthode qui permet de modifier la photo du film sélectionné (à la fois sur l'interface et sur le fichier)
     */
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -538,13 +538,13 @@ public class DVDFORM extends javax.swing.JFrame {
 
     /*
         méthode qui permet d'actualiser la page et plus précisemment d'actualiser les informations du dernier film sélectionné (utile lorsqu'on modifie le film)
-    */ 
-    
+    */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
