@@ -12,21 +12,21 @@ public class Modifications extends javax.swing.JFrame {
     private DVDFORM D;
     private ArrayList<Film> Films;
 
-    public Modifications(DVDFORM D) { 
+    public Modifications(DVDFORM D) {
         this.D=D;
         Films=D.GetFilms();
-        
+
         initComponents();
         Windowlistenner();
-        
+
         jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); // on empêche l'utilisation du scroll horizontal
         jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); // on autorise le scroll vertical quand c'est nécessaire
         synopsys1.setLineWrap(true); // on permet le retour automatique à la ligne dès que le texte s'approche des bordures ( pour que le texte ne s'étale pas horizontalement)
-        
+
         int position=D.index();// permet de récupérer l'index du film qu'on souhaite modifier
         Ecrire_Donnees_Dans_Champs(position); // on insère toutes les données du film pour que l'utilisateur choisisse précisemment celles qu'il souhaite changer
     }
-    
+
     public void Windowlistenner(){
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // par défaut l'utilisateur ne pourra pas fermer la fenêtre (via la croix rouge)
         this.addWindowListener(new java.awt.event.WindowAdapter(){
@@ -38,7 +38,7 @@ public class Modifications extends javax.swing.JFrame {
             }
         });
     }
-    
+
     /*
         Méthode qui permet de récupérer les évènements qui se déroulent sur la fenêtre et plus précisemment de savoir quand l'utilisateur cherche à fermer la fenêtre (via la croix rouge)
         quand c'est le cas pour que l'utilisateur ne puisse pas arrêter le programme on récupère cette évènement et on ferme la fenêtre Ajouter tout en réaffichant la fenêtre principale.
@@ -54,22 +54,22 @@ public class Modifications extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     /*
         Méthode qui permet de vérifier si les données inscrites dans les champs date et durée sont bien des Integer (elle retourne true si c'est le cas et false dans le cas contraire)
     */
-    
+
     public boolean IsNotEmpty(){
         if(nom1.getText().isBlank() || date1.getText().isBlank() || duree1.getText().isBlank() || synopsys1.getText().isBlank()){
             return false;
-        }else return true; 
+        }else return true;
     }
-    
-    /* 
+
+    /*
         Méthode qui vérifie si l'ensemble des champs sont remplis, elle retourne true si c'est le cas et false dans le cas ou l'un des champs seraient nulle ou juste rempli d'espace.
     */
-    
-    
+
+
     public void Ecrire_Donnees_Dans_Champs(int position){
         nom1.setText(Films.get(position).getNom());
         date1.setText(Films.get(position).getDate());
@@ -80,7 +80,7 @@ public class Modifications extends javax.swing.JFrame {
     /*
         méthode qui permet d'écrire l'ensemble des données du film sélectionné dans les différents champs prévu à cet égard
     */
-    
+
     public String WriteSysnopsysInFile(String synopsys){
         String[] lines = synopsys.split("\n"); // on segmente le paragraphe selon les sauts de lignes pour par la suite concaténer l'ensemble de ces phrases sur une seule ligne
         String Synopfile = "";
@@ -89,7 +89,7 @@ public class Modifications extends javax.swing.JFrame {
         }
         return Synopfile;
     }
-    
+
     /*
         méthode qui permet d'écrire correctement le synopsis (c'est à dire sur une seul ligne) dans notre base de données
     */
@@ -121,7 +121,7 @@ public class Modifications extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Linux Libertine Display G", 2, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Modifier les informations que vous souhaitees.");
+        jLabel2.setText("Modifier les informations que vous souhait\u00e9es.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -274,26 +274,26 @@ public class Modifications extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void QuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitterActionPerformed
-      this.dispose(); 
+      this.dispose();
       D.setVisible(true);
     }//GEN-LAST:event_QuitterActionPerformed
     /*
         Méthode qui permet de fermer cette fenêtre et de ré-afficher la fenêtre principale
-    */ 
+    */
     private void ValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValiderActionPerformed
 
-        if(IsNotEmpty() && Isnumber()){ 
+        if(IsNotEmpty() && Isnumber()){
             String nom = nom1.getText().strip();
             String date = date1.getText().strip();
             String duree = duree1.getText().strip();
             String synopsys = WriteSysnopsysInFile(synopsys1.getText().strip());
-            
+
             int position=D.index();
             Films.get(position).ModifierFilm(nom, date, duree, synopsys); //on modifie le film dans la liste
-            
+
             EcritureF f= new EcritureF();
             f.Modifier(Films); //on modifie le film dans le fichier
-            
+
             this.dispose();//on ferme cette fenêtre
             D.setVisible(true);//on ré-affiche la fenêtre principale
         }
@@ -301,11 +301,11 @@ public class Modifications extends javax.swing.JFrame {
             JOptionPane erreur = new JOptionPane();
             erreur.showMessageDialog(null, "Vous n'avez pas ou mal rempli certaines cases !", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
-    
+
     }//GEN-LAST:event_ValiderActionPerformed
     /*
         Méthode qui permet de valider les modifications (dans l'interface et dans le fichier) uniquement si les champs sont rempli et contiennent le bon format
-    */ 
+    */
     private void nom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nom1ActionPerformed
 
     }//GEN-LAST:event_nom1ActionPerformed
@@ -325,7 +325,7 @@ public class Modifications extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -354,7 +354,7 @@ public class Modifications extends javax.swing.JFrame {
     }
     /*
         Méthode qui permet d'ouvrir la fenêtre et d'afficher le contenu de celle ci
-    */ 
+    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Quitter;

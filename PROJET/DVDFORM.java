@@ -416,7 +416,7 @@ public class DVDFORM extends javax.swing.JFrame {
             jComboBox1.setSelectedIndex(position+1);
         else { // sinon on informe via une boîte de dialogue que l'utilisateur est arrivé au bout de la liste
             JOptionPane Infos = new JOptionPane();
-            Infos.showMessageDialog(null, "Vous êtes à la fin de la liste vous ne pouvez plus \navancer !", "Information", JOptionPane.INFORMATION_MESSAGE);
+            Infos.showMessageDialog(null, "Vous \u00eates \u00e0 la fin de la liste vous ne pouvez plus \navancer !", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_FilmSuivantActionPerformed
     /*
@@ -510,7 +510,7 @@ public class DVDFORM extends javax.swing.JFrame {
             }
             else {
                 JOptionPane Warning = new JOptionPane();
-                Warning.showMessageDialog(null, "Le fichier n'a pas été ouvert veuillez recommencez", "Warning", JOptionPane.WARNING_MESSAGE);
+                Warning.showMessageDialog(null, "Le fichier n'a pas \u00e9t\u00e9 ouvert veuillez recommencez", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
         else {
