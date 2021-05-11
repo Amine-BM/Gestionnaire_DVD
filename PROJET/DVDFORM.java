@@ -12,7 +12,6 @@ public class DVDFORM extends javax.swing.JFrame {
     public DVDFORM() {
         initComponents();
         LectureF f = new LectureF();
-        System.out.println("fichier modifier");
         f.Segmenter();
         String[][] result = f.Getresult();
         films = new ArrayList<Film>();

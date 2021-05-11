@@ -29,7 +29,6 @@ public class LectureF {
                 tmp.add(ligne);
             }
             in.close();
-            System.out.println(fic.getAbsolutePath());
             result = new String[tmp.size()][5];
             for(int i=0; i<tmp.size(); i++){
                 result[i] = tmp.get(i).split(";"); // on segmente les informations en fonction du séparateur
